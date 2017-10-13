@@ -10,6 +10,7 @@ server.route({
     method: 'GET',
     path: '/',
     handler: function (request, reply) {
+
         reply('Hello, worldddd!');
     }
 });
@@ -18,6 +19,7 @@ server.route({
     method: 'GET',
     path: '/{name}',
     handler: function (request, reply) {
+
         reply('Hello, ' + encodeURIComponent(request.params.name) + '!');
     }
 });
@@ -39,11 +41,17 @@ server.register({
         }
     }
 }, (err) => {
+
+    if (err) {
+        throw err;
+    }
+
     server.start((err) => {
 
         if (err) {
             throw err;
         }
-        server.log('info', `Server running at: ${server.info.uri}`);
+        server.log('info', `Server running at : ${server.info.uri}`);
+        server.log('info', `Environment name : ${process.env.NODE_ENV}`);
     });
 });
