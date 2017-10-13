@@ -1,57 +1,75 @@
 'use strict';
 
-const Hapi = require('hapi');
-const Good = require('good');
+const Glue = require('glue');
+const Config = require('./config');
+const ServerConfig = Config.server.hapiNetworking;
 
-const server = new Hapi.Server();
-server.connection({ port: 3000, host: 'localhost' });
+ServerConfig.uri = (ServerConfig.tls ? 'https://' : 'http://') + `${ServerConfig.host}:${ServerConfig.port}`;
 
-server.route({
-    method: 'GET',
-    path: '/',
-    handler: function (request, reply) {
+const manifest = {
+  server: {
+    app: Config
+  },
 
-        reply('Hello, worldddd!');
+  connections: [
+    {
+      host: ServerConfig.host,
+      port: ServerConfig.port,
+      labels: ['api'],
+      routes: {
+        security: true
+      }
     }
-});
+  ],
 
-server.route({
-    method: 'GET',
-    path: '/{name}',
-    handler: function (request, reply) {
-
-        reply('Hello, ' + encodeURIComponent(request.params.name) + '!');
+  registrations: [
+    {
+      plugin: {
+        register: 'good',
+        options: Config.good
+      }
+    },
+    {
+      plugin: {
+        register: './manifest'
+      }
     }
-});
+  ]
+};
 
-server.register({
-    register: Good,
-    options: {
-        reporters: {
-            console: [{
-                module: 'good-squeeze',
-                name: 'Squeeze',
-                args: [{
-                    response: '*',
-                    log: '*'
-                }]
-            }, {
-                module: 'good-console'
-            }, 'stdout']
-        }
-    }
-}, (err) => {
+if (Config.cache) {
+  const caches = [];
+  Object.keys(Config.cache).forEach((key) => {
+
+    caches.push(Config.cache[key]);
+  });
+
+  manifest.server.cache = caches;
+}
+
+const opts = { relativeTo: __dirname };
+
+Glue.compose(manifest, opts, (err, server) => {
+
+  if (err) {
+    throw err;
+  }
+
+  const bootMessage = `Server started with success! ${Config.product.name} is listening on ${ServerConfig.uri}. Environment: ${Config.env}`;
+
+  server.initialize((err) => {
 
     if (err) {
-        throw err;
+      throw err;
     }
 
     server.start((err) => {
 
-        if (err) {
-            throw err;
-        }
-        server.log('info', `Server running at : ${server.info.uri}`);
-        server.log('info', `Environment name : ${process.env.NODE_ENV}`);
+      if (err) {
+        throw err;
+      }
+
+      server.log(['info'], bootMessage);
     });
+  });
 });
