@@ -24,6 +24,15 @@
   },
   "homepage": "https://github.com/th0m4sb/hapi-networking-api#readme",
   "dependencies": {
+    "good": "7.3.0",
+    "good-console": "6.4.0",
+    "good-squeeze": "5.0.2",
     "hapi": "16.6.2"
+  },
+  "devDependencies": {
+    "eslint": "4.8.0",
+    "eslint-config-hapi": "10.1.0",
+    "eslint-plugin-hapi": "4.0.0",
+    "eslint-plugin-node": "5.2.0"
   }
 }
