@@ -1,0 +1,28 @@
+{
+  "list": [
+    {
+      "id" : 1,
+      "name" : "Thomas"
+    },
+    {
+      "id" : 2,
+      "name" : "Pierre"
+    },
+    {
+      "id" : 3,
+      "name" : "Lucie"
+    },
+    {
+      "id" : 4,
+      "name" : "Jean"
+    },
+    {
+      "id" : 5,
+      "name" : "Paul"
+    },
+    {
+      "id" : 6,
+      "name" : "Louise"
+    }
+  ]
+}

@@ -18,14 +18,7 @@ const find = function find(query, next) {
 
   try {
 
-    return next(null, [
-      {
-        id : 1
-      },
-      {
-        id: 2
-      }
-    ]);
+    return next(null, require('../datas/users.json').list);
   }
   catch (e) {
 
