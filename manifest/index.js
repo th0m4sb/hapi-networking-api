@@ -8,6 +8,9 @@ exports.register = (server, options, next) => {
 
   server.register([
     {
+      register: require('../methods')
+    },
+    {
       register: require('../routes'),
       routes: { prefix }
     }
