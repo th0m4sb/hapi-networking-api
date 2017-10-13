@@ -1,0 +1,29 @@
+{
+  "name": "hapi-networking-api",
+  "version": "1.0.0",
+  "description": "API pour l'application démo de Networking",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/th0m4sb/hapi-networking-api.git"
+  },
+  "keywords": [
+    "api",
+    "hapijs",
+    "hapi",
+    "nodejs",
+    "networking"
+  ],
+  "author": "Th0m4sb",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/th0m4sb/hapi-networking-api/issues"
+  },
+  "homepage": "https://github.com/th0m4sb/hapi-networking-api#readme",
+  "dependencies": {
+    "hapi": "16.6.2"
+  }
+}
